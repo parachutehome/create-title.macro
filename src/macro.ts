@@ -85,7 +85,7 @@ const macro: MacroHandler = ({
 };
 
 const macroOptions: Options = {
-    configName: "storybook-create-title.macro",
+    configName: "create-title.macro",
 }
 
 export default createMacro(macro, macroOptions);

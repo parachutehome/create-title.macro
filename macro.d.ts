@@ -1,5 +1,5 @@
 /**
- * "storybook-create-title.macro" will automatically generate
+ * This macro will automatically generate
  * titles for your stories in Storybook.
  *
  *
@@ -16,19 +16,19 @@
  * @example <caption>Auto generate title</caption>
  *
  * // src/components/media/Image.js
- * import createTitle from 'storybook-create-title.macro';
+ * import createTitle from '@parachutehome/create-title.macro';
  * createTitle(); // outputs: `components/media/Image`
  *
  * @example <caption>Manual title</caption>
  *
  * // src/components/media/Image.js
- * import createTitle from 'storybook-create-title.macro';
+ * import createTitle from '@parachutehome/create-title.macro';
  * createTitle('Apple'); // outputs: `components/media/Apple`
  *
  * @example <caption>Manual override with specified title</caption>
  *
  * // src/components/media/Image.js
- * import createTitle from 'storybook-create-title.macro';
+ * import createTitle from '@parachutehome/create-title.macro';
  * createTitle('Apple', true); // outputs: `Apple`
  *
  * For more information about the macro visit the README.

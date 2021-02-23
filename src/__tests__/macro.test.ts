@@ -119,7 +119,7 @@ const tests = [
     {
         title: 'should remove "rootDir" when passed as macro plugin option',
         pluginOptions: {
-            "storybook-create-title.macro": { rootDir: 'dist/' }
+            "create-title.macro": { rootDir: 'dist/' }
         },
         code: `
             import createTitle from '../macro';
@@ -130,7 +130,7 @@ const tests = [
     {
         title: 'should ignore removing "rootDir" because it\'s not found',
         pluginOptions: {
-            "storybook-create-title.macro": { rootDir: 'bad/' }
+            "create-title.macro": { rootDir: 'bad/' }
         },
         code: `
             import createTitle from '../macro';
@@ -143,7 +143,7 @@ const tests = [
 
 pluginTester({
     plugin,
-    pluginName: 'storybook-create-title.macro',
+    pluginName: 'create-title.macro',
     babelOptions: {
         filename: __filename,
     },

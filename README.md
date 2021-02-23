@@ -1,6 +1,6 @@
-# storybook-create-title.macro
+# create-title.macro
 
-Automatically generate titles for your stories in [Storybook](storybook.js.org/).
+> Automatically generate titles for your stories in [Storybook](storybook.js.org/).
 
 This [babel macro](https://github.com/kentcdodds/babel-plugin-macros) was created to 
 streamline the developer experience when working with stories inside Storybook. The macro
@@ -8,11 +8,28 @@ will automatically generate a title for your stories -- eliminating the need to
 write them out which can be a time saver especially when a story is nested deep inside
 multiple folders.
 
-## Import
+## Install
 
-```javascript
-import createTitle from 'storybook-create-title.macro';
 ```
+npm i --save-dev @parachutehome/create-title.macro
+```
+
+If you haven't set up your project yet to support babel macros then [read the guide here](https://github.com/kentcdodds/babel-plugin-macros/blob/main/other/docs/user.md).
+
+tl;dr
+
+```
+npm i --save-dev @parachutehome/create-title.macro babel-plugin-macros
+```
+
+Then in your `.babelrc`:
+
+```
+{
+  "plugins": ["macros"]
+}
+```
+
 
 ## Usage
 
@@ -25,7 +42,7 @@ for a folder.
 
 ```javascript
 // src/components/controls/Button/index.stories.js
-import createTitle from 'storybook-create-title.macro';
+import createTitle from '@parachutehome/create-title.macro';
 
 export default {
     title: createTitle(), // output: components/controls/Button
@@ -37,7 +54,7 @@ export default {
 
 ```javascript
 // src/components/controls/Input.stories.js
-import createTitle from 'storybook-create-title.macro';
+import createTitle from '@parachutehome/create-title.macro';
 
 export default {
     title: createTitle(), // output: components/controls/Input
@@ -55,7 +72,7 @@ Note: The macro evaluates the file names and folder names as case-sensitive.
 
 ```javascript
 // src/components/controls/Checkbox/Checkbox.stories.js
-import createTitle from 'storybook-create-title.macro';
+import createTitle from '@parachutehome/create-title.macro';
 
 export default {
     title: createTitle(), // output: components/controls/Checkbox
@@ -75,7 +92,7 @@ It doesn't try to replace the title automatically if it sees an `index` file nam
 
 ```javascript
 // src/components/controls/Button/index.stories.js
-import createTitle from 'storybook-create-title.macro';
+import createTitle from '@parachutehome/create-title.macro';
 
 export default {
     title: createTitle('Apple'), // output: components/controls/Button/Apple
@@ -87,7 +104,7 @@ export default {
 
 ```javascript
 // src/components/controls/Input.stories.js
-import createTitle from 'storybook-create-title.macro';
+import createTitle from '@parachutehome/create-title.macro';
 
 export default {
     title: createTitle('Apple'), // output: components/controls/Apple
@@ -99,7 +116,7 @@ export default {
 
 ```javascript
 // src/components/controls/Checkbox/Checkbox.stories.js
-import createTitle from 'storybook-create-title.macro';
+import createTitle from '@parachutehome/create-title.macro';
 
 export default {
     title: createTitle('Apple'), // output: components/controls/Checkbox/Apple
@@ -121,7 +138,7 @@ over again.
 
 ```javascript
 // src/components/controls/Button/index.stories.js
-import createTitle from 'storybook-create-title.macro';
+import createTitle from '@parachutehome/create-title.macro';
 
 export default {
     title: createTitle('lib/Apple', true), // output: lib/Apple 
@@ -154,7 +171,7 @@ When the macro runs it will remove the `rootDir` from the generated title.
 ```javascript
 // babel-plugin-macros.config.js
 module.exports = {
-  "storybook-create-title.macro": {
+  "create-title.macro": {
     rootDir: 'src/lib'
   },
 }
@@ -167,7 +184,7 @@ Just give it the root folder path you want removed.
 ```javascript
 // babel-plugin-macros.config.js
 module.exports = {
-  "storybook-create-title.macro": {
+  "create-title.macro": {
     rootDir: '../src/lib' // no need for `../`
   },
 }
@@ -177,7 +194,7 @@ module.exports = {
 
 ```javascript
 // src/lib/components/controls/Input.stories.js
-import createTitle from 'storybook-create-title.macro';
+import createTitle from '@parachutehome/create-title.macro';
 
 export default {
     title: createTitle(), // output: components/controls/Input
@@ -196,7 +213,7 @@ pass an empty string as the config option
 ```javascript
 // babel-plugin-macros.config.js
 module.exports = {
-  "storybook-create-title.macro": {
+  "create-title.macro": {
     rootDir: '' // dont remove rootDir from generated title
   },
 }
@@ -206,7 +223,7 @@ module.exports = {
 
 ```javascript
 // src/lib/components/controls/Input.stories.js
-import createTitle from 'storybook-create-title.macro';
+import createTitle from '@parachutehome/create-title.macro';
 
 export default {
     title: createTitle(), // output: src/lib/components/controls/Input

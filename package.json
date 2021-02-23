@@ -1,9 +1,9 @@
 {
-  "name": "storybook-create-title.macro",
+  "name": "@parachutehome/create-title.macro",
   "version": "1.0.0",
   "description": "Automatically create storybook titles using a babel macro.",
   "main": "dist/macro.js",
-  "types": "storybook-create-title.macro.d.ts",
+  "types": "macro.d.ts",
   "keywords": [
     "babel-macro",
     "babel-plugin-macro",
@@ -13,10 +13,18 @@
     "create title",
     "auto create title"
   ],
+  "homepage": "https://github.com/parachutehome/create-title.macro#readme",
+  "bugs": {
+    "url": "https://github.com/parachutehome/create-title.macro/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/parachutehome/create-title.macro.git"
+  },
   "contributors": [
     {
       "name": "Rogelio Negrete",
-      "url": "github.com/weffe"
+      "url": "https://github.com/Weffe"
     }
   ],
   "scripts": {
@@ -26,8 +34,10 @@
     "pretest": "run-s build",
     "test": "jest"
   },
+  "peerDependencies": {
+    "babel-plugin-macros": ">=2.x"
+  },
   "dependencies": {
-    "babel-plugin-macros": "3.0.1",
     "pkg-dir": "5.0.0",
     "upath": "2.0.1"
   },
@@ -39,6 +49,7 @@
     "@types/jest": "26.0.20",
     "@types/node": "14.14.31",
     "babel-jest": "26.6.3",
+    "babel-plugin-macros": "3.0.1",
     "babel-plugin-tester": "10.0.0",
     "jest": "26.6.3",
     "npm-run-all": "4.1.5",
@@ -46,10 +57,8 @@
     "typescript": "4.1.5"
   },
   "files": [
-    "README.md",
     "dist/",
-    "package.json",
-    "storybook-create-title.macro.d.ts"
+    "macro.d.ts"
   ],
   "license": "ISC"
 }
