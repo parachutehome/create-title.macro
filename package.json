@@ -1,6 +1,5 @@
 {
   "name": "storybook-create-title.macro",
-  "private": true,
   "version": "1.0.0",
   "description": "Automatically create storybook titles using a babel macro.",
   "main": "dist/macro.js",
@@ -13,6 +12,12 @@
     "storybook",
     "create title",
     "auto create title"
+  ],
+  "contributors": [
+    {
+      "name": "Rogelio Negrete",
+      "url": "github.com/weffe"
+    }
   ],
   "scripts": {
     "tsc": "tsc",
