@@ -1,10 +1,10 @@
 # create-title.macro
 
+[![npm (scoped)](https://img.shields.io/npm/v/@parachutehome/create-title.macro)](https://www.npmjs.com/package/@parachutehome/create-title.macro "View this project on npm")
 ![status](https://img.shields.io/badge/status-stable-green?style=flat-square)
 ![status](https://img.shields.io/badge/maintained-yes-green?style=flat-square)
-![npm (scoped)](https://img.shields.io/npm/v/parachutehome/create-title.macro?style=flat-square)
 
-> Automatically generate titles for your stories in [Storybook](storybook.js.org/).
+Automatically generate titles for your stories in [Storybook](storybook.js.org/).
 
 This [babel macro](https://github.com/kentcdodds/babel-plugin-macros) was created to 
 streamline the developer experience when working with stories inside Storybook. The macro
