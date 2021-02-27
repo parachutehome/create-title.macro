@@ -6,4 +6,4 @@ All notable changes to this project will be documented in this file.
 
 ## Features
 
-- add intital working macro
+- add intital working macro 

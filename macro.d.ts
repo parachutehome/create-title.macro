@@ -33,8 +33,7 @@
  *
  * For more information about the macro visit the README.
  */
-export default function(
-    manualTitle?: string,
-    useManualTitleOverride?: boolean,
+export default function (
+  manualTitle?: string,
+  useManualTitleOverride?: boolean
 ): string;
-
