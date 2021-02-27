@@ -1,0 +1,7 @@
+node_modules
+dist
+.editorconfig
+.eslintrc.js
+babel.config.js
+jest.config.js
+macro.d.ts
