@@ -28,6 +28,7 @@
     }
   ],
   "scripts": {
+    "start": "tsc --watch",
     "tsc": "tsc",
     "clean": "rimraf dist",
     "build": "run-s clean tsc",
