@@ -10,7 +10,7 @@ import { toUnix } from "upath";
  * @see https://github.com/storybookjs/paths.macro
  */
 
-interface PathData {
+export interface PathData {
   /** The name of the file where the macro was called. */
   filename: string;
   /** The base path for the file where the macro was called. */

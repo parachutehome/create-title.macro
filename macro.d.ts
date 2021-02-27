@@ -1,4 +1,17 @@
 /**
+ * Set the config for this file only. `setConfigForThisFile` provides a way
+ * to override the config for this macro on a per-file basis.
+ * 
+ * @param {{rootDir: string | undefined, removeDupeTitle: boolean | undefined }} config 
+ */
+export function setConfigForThisFile(config: {
+  /** If undefined, defaults to global `rootDir` value which initially is `src` */
+  rootDir?: string;
+  /** If undefined, defaults to global `removeDupeTitle` value which initially is `false` */
+  removeDupeTitle?: boolean;
+}): void;
+
+/**
  * This macro will automatically generate
  * titles for your stories in Storybook.
  *
@@ -33,7 +46,7 @@
  *
  * For more information about the macro visit the README.
  */
-export default function (
+export default function createTitle(
   manualTitle?: string,
   useManualTitleOverride?: boolean
 ): string;

@@ -7,12 +7,15 @@ interface CreateAutoTitleParams {
   filename: string;
   /** The rootDir that's passed as a macro config option */
   rootDir: string;
+  /** Should remove duplicate title name */
+  removeDupeTitle: boolean;
 }
 
 export function createAutoTitle({
   base,
   filename,
   rootDir,
+  removeDupeTitle,
 }: CreateAutoTitleParams): string {
   const {
     normalizedBase,
@@ -26,7 +29,7 @@ export function createAutoTitle({
 
   if (
     normalizedFilename === "index" ||
-    normalizedFilename === parentFolderName
+    (removeDupeTitle && normalizedFilename === parentFolderName)
   ) {
     /**
      * We use parent folder name (a.k.a the last path)

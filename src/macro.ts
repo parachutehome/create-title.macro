@@ -1,82 +1,70 @@
 import { createMacro, MacroError } from "babel-plugin-macros";
 import { getPathData } from "./getPathData";
-import { createAutoTitle, createManualTitle, createErrorMessage } from "./lib";
+import { setMacroConfig } from "./macroConfig";
+import { handleDefaultReference } from "./handleDefaultReference";
+import { handleSetConfigForThisFileReference } from "./handleSetConfigForThisFileReference";
 
-import type { CallExpression } from "@babel/types";
-import type { MacroHandler, Options } from "babel-plugin-macros";
+import type { MacroHandler, MacroParams, Options } from "babel-plugin-macros";
 
-const macro: MacroHandler = ({
-  references,
-  state,
-  config,
-  babel: { types: t },
-}) => {
-  const { base, filename } = getPathData(state.file.opts.filename!);
-  const paths = references.default;
+export type Babel = MacroParams["babel"];
+
+const macro: MacroHandler = ({ references, state, config, babel }) => {
+  const inputFilename = state.file.opts.filename;
+
+  if (inputFilename === undefined || inputFilename === null) {
+    throw new MacroError(
+      "Unable to create title because the input filename was empty"
+    );
+  }
+
+  const { base, filename } = getPathData(inputFilename);
+
+  const rootDir = String(config?.rootDir ?? "src");
+  const removeDupeTitle = Boolean(config?.removeDupeTitle);
+
+  setMacroConfig({
+    rootDir,
+    removeDupeTitle,
+  });
 
   /**
-   * We default to `src` as the rootDir
-   * for no big reason. It's just
-   * a common folder name where
-   * all of the code lives in.
+   * We want the `default` reference to be at the
+   * end of the entries because we want to ensure
+   * that `setConfigForThisFile` has a chance
+   * to execute before `createTitle` gets called
    */
-  const rootDir: string = config?.rootDir ?? "src";
+  const entries = Object.entries(references).sort((left, right) => {
+    const [leftReferenceKey] = left;
+    const [rightReferenceKey] = right;
 
-  for (const { parentPath } of paths) {
-    /**
-     * We ensure the macro is being invoked by
-     * a Call Expression. In laymen terms, how
-     * we would call a function with parenthesis.
-     *
-     * e.g. `createTitle('apple')`
-     */
-    const isCallExpression = parentPath.isNodeType("CallExpression");
-
-    if (isCallExpression) {
-      const parentNode = parentPath.node as CallExpression;
-      const args = parentNode.arguments;
-      type arg = CallExpression["arguments"][0] | undefined;
-      const firstArg: arg = args.length > 0 ? args[0] : undefined;
-      const secondArg: arg = args.length > 0 ? args[1] : undefined;
-
-      // Make sure firstArg is a string or undefined
-      // and secondArg is a boolean or undefined
-      if (
-        (firstArg === undefined || firstArg.type === "StringLiteral") &&
-        (secondArg === undefined || secondArg.type === "BooleanLiteral")
-      ) {
-        // createTitle.macro('apple')
-        //                   ^^^^^^^
-        const manualTitle: string | undefined = firstArg?.value ?? undefined;
-
-        // createTitle.macro('apple', true)
-        //                            ^^^^
-        const useManualTitleOverride = Boolean(secondArg?.value);
-
-        if (manualTitle) {
-          const newTitle = createManualTitle({
-            base,
-            manualTitle,
-            useManualTitleOverride,
-            rootDir,
-          });
-
-          parentPath.replaceWith(t.stringLiteral(newTitle));
-        } else {
-          const newTitle = createAutoTitle({ base, filename, rootDir });
-
-          parentPath.replaceWith(t.stringLiteral(newTitle));
-        }
-
-        // needed to avoid hitting the default MacroError we have below
-        // since this has been a valid use of the macro
-        continue;
-      }
+    if (leftReferenceKey === "default" || rightReferenceKey === "default") {
+      return -1;
     }
+    return 1;
+  });
 
-    const line = parentPath.node?.loc?.start?.line;
-    const message = createErrorMessage(line);
-    throw new MacroError(message);
+  for (const [referenceKey, paths] of entries) {
+    /**
+     * This macro can be referenced in two ways:
+     * 1. Through default export -- whatever it's named (e.g. `createTitle`)
+     * 2. Through named export -- `setConfigForThisFile`
+     *
+     * Each reference has their own handler as they provide
+     * different behaviors.
+     */
+
+    switch (referenceKey) {
+      case "default":
+        handleDefaultReference({ paths, base, filename, babel });
+        break;
+      case "setConfigForThisFile":
+        handleSetConfigForThisFileReference({ paths });
+        break;
+      default:
+        throw new MacroError(
+          `Unexpected reference used from "@parachutehome/create-title.macro". Please remove the following: ${referenceKey}`
+        );
+    }
   }
 };
 

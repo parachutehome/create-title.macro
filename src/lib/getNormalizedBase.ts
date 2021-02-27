@@ -5,12 +5,22 @@ export function getNormalizedBase(base: string, rootDir: string): string {
   // get rid of leading and trailing `/`
   let newBase: string = base.replace(/^\//, "").replace(/\/$/, "");
 
-  // make sure the rootDir ends with a trailing slash
-  // e.g. /src/ -> src/ or ./src/ -> src/
-  const normalizedRootDir = rootDir.replace(/[\/.]*/g, "") + "/";
+  /**
+   * make sure the rootDir ends with a trailing slash
+   * e.g. /src/ -> src/
+   * e.g. ../src/.. -> src/
+   * e.g. ../src/components/.. -> src/components/
+   */
+  const normalizedRootDir =
+    rootDir.replace(/^[/.]*/, "").replace(/[/.]*$/, "") + "/";
 
-  //  get rid of leading `src/` or rootDir in the new base
-  newBase = newBase.replace(normalizedRootDir, "");
+  /**
+   * get rid of leading rootDir in the new base
+   * only if `rootDir` is not an empty string
+   */
+  if (rootDir.length > 0) {
+    newBase = newBase.replace(normalizedRootDir, "");
+  }
 
   return newBase;
 }
