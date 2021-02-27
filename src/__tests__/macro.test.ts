@@ -44,7 +44,7 @@ const tests = [
   },
   {
     title: "should do nothing",
-    code: `import createTitle from '../macro';`,
+    code: `import createTitle, { setConfigForThisFile } from '../macro';`,
     output: ``,
   },
   {
@@ -105,8 +105,14 @@ const tests = [
   },
   {
     title: "should do nothing due to no macro import",
-    code: `createTitle();`,
-    output: `createTitle();`,
+    code: `
+      setConfigForThisFile({});
+      createTitle();
+    `,
+    output: `
+      setConfigForThisFile({});
+      createTitle();
+    `,
   },
   {
     title: "should allow duplicate path name if using manual title",
@@ -137,6 +143,65 @@ const tests = [
             createTitle('apple');
         `,
     output: `"dist/__tests__/apple";`,
+  },
+  {
+    title: "should fail calling setConfigForThisFile with nothing",
+    code: `
+            import createTitle, { setConfigForThisFile } from '../macro';
+            
+            setConfigForThisFile();
+            createTitle();
+        `,
+    error: true,
+  },
+  {
+    title: "should support calling setConfigForThisFile with empty object",
+    code: `
+            import createTitle, { setConfigForThisFile } from '../macro';
+            
+            setConfigForThisFile({});
+            createTitle();
+        `,
+    output: `"dist/__tests__/macro.test";`,
+  },
+  {
+    title:
+      "should support calling setConfigForThisFile with `string` for `rootDir`",
+    code: `
+            import createTitle, { setConfigForThisFile } from '../macro';
+            
+            setConfigForThisFile({
+              rootDir: 'dist/'
+            });
+            createTitle();
+        `,
+    output: `"__tests__/macro.test";`,
+  },
+  {
+    title:
+      "should fail calling setConfigForThisFile with `undefined` for `rootDir`",
+    code: `
+            import createTitle, { setConfigForThisFile } from '../macro';
+            
+            setConfigForThisFile({
+              rootDir: undefined
+            });
+            createTitle();
+        `,
+    error: true,
+  },
+  {
+    title:
+      "should fail calling setConfigForThisFile with `undefined` for `removeDupeTitle`",
+    code: `
+            import createTitle, { setConfigForThisFile } from '../macro';
+            
+            setConfigForThisFile({
+              removeDupeTitle: undefined
+            });
+            createTitle();
+        `,
+    error: true,
   },
 ];
 
