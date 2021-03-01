@@ -9,4 +9,4 @@
   * [removeDupeTitle](config/removeDupeTitle.md)
   * [subExtensions](config/subExtensions.md)
 * [Kitchen Sink Example](kitchen-sink-example.md)
-* [Changelog](https://github.com/parachutehome/create-title.macro/blob/master/CHANGELOG.md)
+* [Changelog](https://github.com/parachutehome/create-title.macro/blob/main/CHANGELOG.md)
