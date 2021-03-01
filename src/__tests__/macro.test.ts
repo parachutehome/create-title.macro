@@ -23,6 +23,26 @@ const tests = [
     `,
   },
   {
+    title: "should fail to generate manual title with var",
+    code: `
+            import createTitle from '../macro';
+            const manualTitle = 'apple';
+            createTitle(manualTitle);
+        `,
+    error: true,
+  },
+  {
+    title: "should fail generating a manual title when computing a string literal",
+    code: `
+            import createTitle from '../macro';
+
+            const myvar = 'bad';
+            createTitle('apple' + myvar);
+            createTitle(\`apple\${myvar}\`);
+        `,
+    error: true,
+  },
+  {
     title: "should generate auto title when passed an empty string",
     code: `
             import createTitle from '../macro';
