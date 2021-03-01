@@ -71,7 +71,7 @@ const macro: MacroHandler = ({ references, state, config, babel }) => {
 };
 
 const macroOptions: Options = {
-  configName: "create-title.macro",
+  configName: "create-title",
 };
 
 export default createMacro(macro, macroOptions);

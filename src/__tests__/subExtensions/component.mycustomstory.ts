@@ -6,7 +6,7 @@ const tests = [
     title:
       "should support custom sub extensions as macro plugin option",
     pluginOptions: {
-      "create-title.macro": { subExtensions: ['.mycustomstory'] },
+      "create-title": { subExtensions: ['.mycustomstory'] },
     },
     code: `
             import createTitle from '../../macro';

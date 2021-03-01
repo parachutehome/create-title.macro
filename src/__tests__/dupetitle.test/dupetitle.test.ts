@@ -59,7 +59,7 @@ const tests = [
   {
     title: "should support `removeDupeTitle` as macro plugin option",
     pluginOptions: {
-      "create-title.macro": { removeDupeTitle: true },
+      "create-title": { removeDupeTitle: true },
     },
     code: `
             import createTitle from '../../macro';

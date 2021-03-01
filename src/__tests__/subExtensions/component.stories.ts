@@ -6,7 +6,7 @@ const tests = [
     title:
       "should support not stripping custom subextension that's not found",
     pluginOptions: {
-      "create-title.macro": { subExtensions: ['.mycustomstory'] },
+      "create-title": { subExtensions: ['.mycustomstory'] },
     },
     code: `
             import createTitle from '../../macro';

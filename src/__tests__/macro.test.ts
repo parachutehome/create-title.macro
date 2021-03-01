@@ -141,7 +141,7 @@ const tests = [
   {
     title: 'should remove "rootDir" when passed as macro plugin option',
     pluginOptions: {
-      "create-title.macro": { rootDir: "dist/" },
+      "create-title": { rootDir: "dist/" },
     },
     code: `
             import createTitle from '../macro';
@@ -152,7 +152,7 @@ const tests = [
   {
     title: 'should ignore removing "rootDir" because it\'s not found',
     pluginOptions: {
-      "create-title.macro": { rootDir: "bad/" },
+      "create-title": { rootDir: "bad/" },
     },
     code: `
             import createTitle from '../macro';
