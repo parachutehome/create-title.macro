@@ -39,7 +39,7 @@ Then in your `.babelrc`:
 ## Example Usage
 
 ```javascript
-// src/components/Button/Button.stories.js
+// src/components/Button/index.stories.js
 
 import createTitle from '@parachutehome/create-title.macro';
 
