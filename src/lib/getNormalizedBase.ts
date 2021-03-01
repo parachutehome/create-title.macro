@@ -1,7 +1,11 @@
+import { getMacroConfig } from "../macroConfig";
+
 /**
  * @returns {string} base path excluding the root dir and any leading/trailing forward slash
  */
-export function getNormalizedBase(base: string, rootDir: string): string {
+export function getNormalizedBase(base: string): string {
+  const { rootDir } = getMacroConfig();
+
   // get rid of leading and trailing `/`
   let newBase: string = base.replace(/^\//, "").replace(/\/$/, "");
 

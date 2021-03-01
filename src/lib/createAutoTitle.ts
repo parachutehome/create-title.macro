@@ -1,3 +1,4 @@
+import { getMacroConfig } from "../macroConfig";
 import { getNormalizedData } from "./getNormalizedData";
 
 interface CreateAutoTitleParams {
@@ -5,18 +6,14 @@ interface CreateAutoTitleParams {
   base: string;
   /** The name of the file where the macro was called. */
   filename: string;
-  /** The rootDir that's passed as a macro config option */
-  rootDir: string;
-  /** Should remove duplicate title name */
-  removeDupeTitle: boolean;
 }
 
 export function createAutoTitle({
   base,
   filename,
-  rootDir,
-  removeDupeTitle,
 }: CreateAutoTitleParams): string {
+  const { removeDupeTitle } = getMacroConfig();
+
   const {
     normalizedBase,
     normalizedFilename,
@@ -24,7 +21,6 @@ export function createAutoTitle({
   } = getNormalizedData({
     base,
     filename,
-    rootDir,
   });
 
   if (

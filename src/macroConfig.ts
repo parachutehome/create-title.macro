@@ -1,13 +1,16 @@
-interface MacroConfig {
-  /** defaults to `src` */
+export interface MacroConfig {
+  /** This is the root directory where you're storybook components live and is stripped from the generated title. Defaults to "src" */
   rootDir: string;
-  /** defaults to `false` */
+  /** Control whether or not to remove a duplicate title for generated titles if the parent folder and filename are the same. Defaults to `false` */
   removeDupeTitle: boolean;
+  /** The list of subextensions you used to denote a storybook which is stripped from the generated title. Defaults to [".stories", ".story"] */
+  subExtensions: string[] ;
 }
 
-const defaultConfig: MacroConfig = {
+export const defaultConfig: MacroConfig = {
   rootDir: "src",
   removeDupeTitle: false,
+  subExtensions: [".stories", ".story"],
 };
 
 const state: { config: MacroConfig } = {

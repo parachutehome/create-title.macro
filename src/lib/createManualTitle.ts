@@ -7,17 +7,14 @@ interface CreateManualTitleParams {
   manualTitle: string;
   /** Should we use the manual title as the actual value? */
   useManualTitleOverride: boolean;
-  /** The rootDir that's passed as a macro config option */
-  rootDir: string;
 }
 
 export function createManualTitle({
   base,
   manualTitle,
   useManualTitleOverride,
-  rootDir,
 }: CreateManualTitleParams): string {
-  const normalizedBase = getNormalizedBase(base, rootDir);
+  const normalizedBase = getNormalizedBase(base);
 
   if (useManualTitleOverride) {
     return manualTitle;

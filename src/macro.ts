@@ -1,6 +1,6 @@
 import { createMacro, MacroError } from "babel-plugin-macros";
 import { getPathData } from "./getPathData";
-import { setMacroConfig } from "./macroConfig";
+import { defaultConfig, setMacroConfig, MacroConfig } from "./macroConfig";
 import { handleDefaultReference } from "./handleDefaultReference";
 import { handleSetConfigForThisFileReference } from "./handleSetConfigForThisFileReference";
 
@@ -19,12 +19,14 @@ const macro: MacroHandler = ({ references, state, config, babel }) => {
 
   const { base, filename } = getPathData(inputFilename);
 
-  const rootDir = String(config?.rootDir ?? "src");
+  const rootDir = (config?.rootDir as MacroConfig["rootDir"] ) ?? defaultConfig.rootDir;
   const removeDupeTitle = Boolean(config?.removeDupeTitle);
+  const subExtensions = (config?.subExtensions as MacroConfig["subExtensions"]) ?? defaultConfig.subExtensions;
 
   setMacroConfig({
     rootDir,
     removeDupeTitle,
+    subExtensions,
   });
 
   /**

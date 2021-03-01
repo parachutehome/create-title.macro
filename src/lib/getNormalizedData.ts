@@ -1,4 +1,5 @@
 import { getNormalizedBase } from "./getNormalizedBase";
+import { getMacroConfig } from "../macroConfig";
 
 interface NormalizedData {
   /** The base path excluding the rootDir and leading/trailing forward slash. */
@@ -12,21 +13,22 @@ interface NormalizedData {
 interface GetNormalizedDataParams {
   base: string;
   filename: string;
-  rootDir: string;
 }
 
 export function getNormalizedData({
   base,
   filename,
-  rootDir,
 }: GetNormalizedDataParams): NormalizedData {
-  const normalizedBase = getNormalizedBase(base, rootDir);
+  const { subExtensions } = getMacroConfig();
+  const normalizedBase = getNormalizedBase(base);
 
   const normalizedBasePaths = normalizedBase.split("/");
   const parentFolderName = normalizedBasePaths[normalizedBasePaths.length - 1];
 
-  // get rid of `.stories` in filename
-  const normalizedFilename = filename.replace(".stories", "");
+  // get rid of sub extensions like `.stories` or `.story` in filename
+  const regexStr = subExtensions.join("|");
+  const regexFilename = new RegExp(regexStr, "i");
+  const normalizedFilename = filename.replace(regexFilename, "");
 
   return {
     normalizedBase,

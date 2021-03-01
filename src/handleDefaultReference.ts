@@ -1,12 +1,12 @@
 import { MacroError } from "babel-plugin-macros";
 import { createAutoTitle, createManualTitle } from "./lib";
-import { getMacroConfig } from "./macroConfig";
 
 import type { NodePath } from "@babel/core";
 import type {
   BooleanLiteral,
   CallExpression,
   StringLiteral,
+  TemplateLiteral,
 } from "@babel/types";
 import type { PathData } from "./getPathData";
 import type { Babel } from "./macro";
@@ -22,7 +22,6 @@ export function handleDefaultReference({
   filename,
   babel: { types: t },
 }: Params): void {
-  const { rootDir, removeDupeTitle } = getMacroConfig();
 
   for (const { parentPath } of paths) {
     /**
@@ -44,14 +43,12 @@ export function handleDefaultReference({
       // Make sure firstArg is a string or undefined
       // and secondArg is a boolean or undefined
       if (
-        (firstArg === undefined || firstArg?.type === "StringLiteral") &&
+        (firstArg === undefined || firstArg?.type === "StringLiteral" || firstArg?.type === "TemplateLiteral") &&
         (secondArg === undefined || secondArg?.type === "BooleanLiteral")
       ) {
         // createTitle.macro('apple')
         //                   ^^^^^^^
-        const manualTitle:
-          | string
-          | undefined = (firstArg as Partial<StringLiteral>)?.value;
+        const manualTitle: string| undefined = getStringFromNode(firstArg);
 
         // createTitle.macro('apple', true)
         //                            ^^^^
@@ -63,8 +60,6 @@ export function handleDefaultReference({
           const newTitle = createAutoTitle({
             base,
             filename,
-            rootDir,
-            removeDupeTitle,
           });
 
           parentPath.replaceWith(t.stringLiteral(newTitle));
@@ -73,7 +68,6 @@ export function handleDefaultReference({
             base,
             manualTitle,
             useManualTitleOverride,
-            rootDir,
           });
 
           parentPath.replaceWith(t.stringLiteral(newTitle));
@@ -97,4 +91,19 @@ function createErrorMessage(line?: number): string {
   const msg2b = `createTitle() or createTitle('Foo') or createTitle('Foo', true)`;
 
   return line ? msg1 + msg2a + msg2b : msg2a + msg2b;
+}
+
+function getStringFromNode(node: StringLiteral | TemplateLiteral | undefined) {
+  if (node === undefined) {
+    return undefined;
+  }
+
+  switch(node.type) {
+    case "StringLiteral":
+      return node.value;
+    case "TemplateLiteral":
+      return node.quasis[0].value.raw;
+    default:
+      return undefined
+  }
 }
