@@ -15,32 +15,48 @@ const tests = [
     code: `
             import createTitle from '../macro';
             createTitle('apple');
+            createTitle(\`apple\`);
         `,
-    output: `"dist/__tests__/apple";`,
+    output: `
+      "dist/__tests__/apple";
+      "dist/__tests__/apple";
+    `,
   },
   {
     title: "should generate auto title when passed an empty string",
     code: `
             import createTitle from '../macro';
             createTitle('');
+            createTitle(\`\`);
         `,
-    output: `"dist/__tests__/macro.test";`,
+    output: `
+      "dist/__tests__/macro.test";
+      "dist/__tests__/macro.test";
+    `,
   },
   {
     title: "should apply manual override",
     code: `
             import createTitle from '../macro';
             createTitle('apple', true);
+            createTitle(\`apple\`, true);
         `,
-    output: `"apple";`,
+    output: `
+      "apple";
+      "apple";
+    `,
   },
   {
     title: "should not apply manual override",
     code: `
             import createTitle from '../macro';
             createTitle('apple', false);
+            createTitle(\`apple\`, false);
         `,
-    output: `"dist/__tests__/apple";`,
+    output: `
+      "dist/__tests__/apple";
+      "dist/__tests__/apple";
+    `,
   },
   {
     title: "should do nothing",
@@ -56,7 +72,7 @@ const tests = [
     error: true,
   },
   {
-    title: "should fail when invoking as a template literal expression",
+    title: "should fail when invoking as a tagged template expression",
     code: `
             import createTitle from '../macro';
             createTitle\`bad\`
