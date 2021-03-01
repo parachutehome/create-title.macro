@@ -1,0 +1,10 @@
+.*
+.idea/
+.vscode/
+node_modules/
+*.config.js
+tsconfig.json
+CONTRIBUTING.md
+dist/__tests__
+docs/
+src/
