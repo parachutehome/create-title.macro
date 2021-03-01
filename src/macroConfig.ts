@@ -1,5 +1,5 @@
 export interface MacroConfig {
-  /** This is the root directory where you're storybook components live and is stripped from the generated title. Defaults to "src" */
+  /** This is the root directory where your storybook components live and is stripped from the generated title. Defaults to "src" */
   rootDir: string;
   /** Control whether or not to remove a duplicate title for generated titles if the parent folder and filename are the same. Defaults to `false` */
   removeDupeTitle: boolean;
