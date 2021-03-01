@@ -1,8 +1,8 @@
-### Automatic Titles
+# Automatic Titles
 
 Let the macro do the work for you and automatically create the title.
 
-#### Using an `index.stories.js` file
+## Using an `index.stories.js` file
 
 This macro respects the naming convention that `index` reflects the _default_ file
 for a folder.
@@ -17,7 +17,7 @@ export default {
 }
 ```
 
-#### Using a named file
+## Using a named file
 
 ```javascript
 // src/components/controls/Input.stories.js
@@ -30,7 +30,7 @@ export default {
 ```
 
 
-#### Using a named file with the same name as the parent folder
+## Using a named file with the same name as the parent folder
 
 In this situation, the macro will generate the title as is (e.g. with the dupe title).
 If you want to change this behavior then take a look at the
