@@ -1,6 +1,6 @@
 /**
- * Set the config for this file only. `setConfigForThisFile` provides a way
- * to override the config for this macro on a per-file basis.
+ * Set the config for this file only. `setConfigForThisFile` provides a
+ * way to override the config for this macro on a per-file basis.
  * 
  * @param {{rootDir: string | undefined, removeDupeTitle: boolean | undefined }} config 
  */
