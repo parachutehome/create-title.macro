@@ -3,6 +3,8 @@
 > Automatically create storybook titles using a babel macro
 
 [GitHub](https://github.com/parachutehome/create-title.macro)
-[Get Started](#create-titlemacro)
+<a style="color: white !important" href="#/?id=create-titlemacro">Get Started</a>
+
+[//]: # (Force above text color to white so on hover it's not unreadable)
 
 ![color](#fbfcf9)
