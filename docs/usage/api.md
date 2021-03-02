@@ -43,5 +43,5 @@ interface MacroConfig {
   removeDupeTitle?: boolean;
 }
 
-export default function setConfigForThisFile(config: MacroConfig);
+export function setConfigForThisFile(config: MacroConfig);
 ```
